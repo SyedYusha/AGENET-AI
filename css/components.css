@@ -1,0 +1,120 @@
+.modal {
+    width: min(480px, calc(100% - 30px));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    background: var(--sidebar);
+    color: var(--text);
+    box-shadow: var(--shadow)
+}
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, .62);
+    backdrop-filter: blur(4px)
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px
+}
+
+.modal-header h2 {
+    font: 600 23px Poppins, sans-serif;
+    margin: 5px 0 0
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 17px 0;
+    border-top: 1px solid var(--border)
+}
+
+.settings-row>div:first-child {
+    display: grid;
+    gap: 6px
+}
+
+.settings-row b {
+    font-size: 12px
+}
+
+.settings-row small {
+    font-size: 10px;
+    color: var(--muted)
+}
+
+.theme-options {
+    display: flex;
+    gap: 6px
+}
+
+.theme-choice,
+.danger-btn {
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--muted);
+    padding: 9px 11px;
+    font-size: 10px
+}
+
+.theme-choice.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft)
+}
+
+.theme-choice i {
+    font-size: 14px;
+    vertical-align: middle;
+    margin-right: 3px
+}
+
+.danger-btn {
+    color: var(--danger);
+    border-color: rgba(239, 100, 100, .3)
+}
+
+.danger-btn:hover {
+    background: rgba(239, 100, 100, .1)
+}
+
+.modal-note {
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--subtle);
+    margin: 18px 0 0
+}
+
+.about-modal {
+    text-align: center
+}
+
+.about-modal .modal-header {
+    text-align: left
+}
+
+.about-logo {
+    width: min(280px, 100%);
+    margin: 5px auto 15px
+}
+
+.about-modal>p:nth-of-type(1) {
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.about-meta {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 13px;
+    margin-top: 18px;
+    color: var(--subtle);
+    font-size: 10px
+}

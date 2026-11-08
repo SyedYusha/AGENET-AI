@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111822">
+  <meta name="description" content="AGENET AI — Your intelligent conversation companion.">
+  <title>AGENET AI — Your Intelligent Conversation Companion</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="assets/mark.svg" alt="AGENET AI logo" class="brand-logo">
+        <span>AGENET <b>AI</b></span>
+        <button class="icon-btn mobile-close" id="closeSidebar" aria-label="Close menu"><i class="bx bx-x"></i></button>
+      </div>
+      <button class="new-chat-btn" id="newChatBtn"><i class="bx bx-plus"></i><span>New chat</span></button>
+      <label class="search-box">
+        <i class="bx bx-search"></i>
+        <input id="searchChats" type="search" placeholder="Search conversations..." aria-label="Search conversations">
+        <kbd>/</kbd>
+      </label>
+      <div class="history-heading"><span>RECENT</span><button class="text-btn" id="clearSearch">Clear</button></div>
+      <nav class="chat-history" id="chatHistory" aria-label="Conversation history">
+        <div class="empty-history">Your conversations will appear here.</div>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="side-link" id="settingsBtn"><i class="bx bx-cog"></i><span>Settings</span></button>
+        <button class="side-link" id="themeBtn"><i class="bx bx-sun"></i><span>Switch to light mode</span></button>
+        <button class="side-link" id="aboutBtn"><i class="bx bx-info-circle"></i><span>About AGENET</span></button>
+        <div class="profile">
+          <div class="avatar">A</div>
+          <div class="profile-copy"><strong>Guest User</strong><small>Personal workspace</small></div>
+          <i class="bx bx-chevron-down profile-chevron"></i>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" id="openSidebar" aria-label="Open menu"><i class="bx bx-menu-alt-left"></i></button>
+          <div class="assistant-mark"><img src="assets/mark.svg" alt=""></div>
+          <div><strong id="topbarTitle">AGENET Assistant</strong><small><span class="online-dot"></span> Demo mode</small></div>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="topThemeBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bx bx-sun"></i></button>
+          <button class="icon-btn" id="aboutTopBtn" aria-label="About" title="About AGENET"><i class="bx bx-info-circle"></i></button>
+        </div>
+      </header>
+
+      <section class="chat-viewport" id="chatViewport">
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="welcome-logo-wrap"><img src="assets/mark.svg" alt="AGENET AI" class="welcome-logo"></div>
+          <p class="eyebrow">YOUR INTELLIGENT CONVERSATION COMPANION</p>
+          <h1>How can I help <span>you today?</span></h1>
+          <p class="welcome-description">Ask a question, explore an idea, or get help with your next project.</p>
+          <div class="prompt-grid">
+            <button class="prompt-card" data-prompt="Explain JavaScript closures in simple terms"><i class="bx bx-code-alt"></i><span><b>Learn something</b><small>Explain a concept simply</small></span><i class="bx bx-arrow-up-right prompt-arrow"></i></button>
+            <button class="prompt-card" data-prompt="Help me plan a productive day"><i class="bx bx-calendar-check"></i><span><b>Plan my day</b><small>Organize tasks and priorities</small></span><i class="bx bx-arrow-up-right prompt-arrow"></i></button>
+            <button class="prompt-card" data-prompt="Give me three creative project ideas"><i class="bx bx-bulb"></i><span><b>Explore ideas</b><small>Brainstorm something new</small></span><i class="bx bx-arrow-up-right prompt-arrow"></i></button>
+            <button class="prompt-card" data-prompt="Help me write a professional email"><i class="bx bx-edit-alt"></i><span><b>Write something</b><small>Draft and improve content</small></span><i class="bx bx-arrow-up-right prompt-arrow"></i></button>
+          </div>
+        </div>
+        <div class="messages-list" id="messagesList" aria-live="polite"></div>
+      </section>
+
+      <footer class="composer-area">
+        <form class="composer" id="chatForm">
+          <textarea id="messageInput" rows="1" placeholder="Message AGENET AI..." aria-label="Write your message"></textarea>
+          <div class="composer-tools">
+            <span class="composer-hint"><i class="bx bx-info-circle"></i> Enter to send · Shift + Enter for a new line</span>
+            <button class="send-btn" id="sendBtn" type="submit" aria-label="Send message" disabled><i class="bx bxs-send"></i></button>
+          </div>
+        </form>
+        <p class="disclaimer">AGENET AI uses simulated responses in this demo. <span>Always verify important information.</span></p>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="modal" id="settingsModal">
+    <div class="modal-header"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div><button class="icon-btn" data-close="settingsModal" aria-label="Close settings"><i class="bx bx-x"></i></button></div>
+    <div class="settings-row"><div><b>Appearance</b><small>Choose your preferred interface theme.</small></div><div class="theme-options"><button class="theme-choice active" data-set-theme="dark"><i class="bx bx-moon"></i> Dark</button><button class="theme-choice" data-set-theme="light"><i class="bx bx-sun"></i> Light</button></div></div>
+    <div class="settings-row"><div><b>Conversation data</b><small>Remove all locally saved conversations.</small></div><button class="danger-btn" id="clearAllBtn">Clear all chats</button></div>
+    <p class="modal-note">Your preferences and conversations are stored in this browser using LocalStorage.</p>
+  </dialog>
+
+  <dialog class="modal about-modal" id="aboutModal">
+    <div class="modal-header"><div><span class="eyebrow">ABOUT THE PROJECT</span><h2>AGENET AI</h2></div><button class="icon-btn" data-close="aboutModal" aria-label="Close about"><i class="bx bx-x"></i></button></div>
+    <img src="assets/logo.svg" alt="AGENET AI" class="about-logo">
+    <p>Your intelligent conversation companion.</p>
+    <p class="modal-note">A frontend demonstration built with HTML, CSS and Vanilla JavaScript. Responses are simulated locally; no real AI service is connected.</p>
+    <div class="about-meta"><span>Version 1.0.0</span><span>Frontend demo</span></div>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+  
