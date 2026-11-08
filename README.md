@@ -2,9 +2,16 @@
 
 **Your intelligent conversation companion.**
 
-AGENET AI is a modern, responsive, frontend-only AI chatbot dashboard built with HTML5, CSS3, and modern modular JavaScript (ES6+). It features interactive conversations with simulated replies, theme customization (Dark/Light), user authentication (Login & Registration) with LocalStorage persistence, and user-scoped conversation history.
+AGENET AI is a modern, responsive AI chatbot dashboard built with HTML5, CSS3, and modern modular JavaScript (ES6+). It features interactive conversations with **real-time streaming AI answers**, dual AI engine support (Free Built-in Cloud AI + Google Gemini API), theme customization (Dark/Light), user authentication (Login & Registration) with LocalStorage persistence, and user-scoped conversation history.
 
 ## Features
+- **Real-Time Streaming AI Answers**:
+  - Live token-by-token streaming responses with typewriter animation and blinking cursor.
+  - Zero-configuration **Free Cloud AI Engine** working out of the box for any question or topic.
+  - **Google Gemini API** support (connect your own AI Studio API key in Settings).
+  - Markdown formatting support: code syntax blocks with 1-click copy, bold, italics, lists, and links.
+  - **Stop Generating** button to cancel/stop answers in real time.
+  - Offline fallback to a local knowledge engine if internet connection drops.
 - **Frontend User Authentication**:
   - Secure modal dialog with **Sign In** and **Create Account** tabs.
   - Interactive validation (name, email format, minimum 6-character password, password confirmation, email collision detection).

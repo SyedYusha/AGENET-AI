@@ -48,6 +48,7 @@
             </div>
           </div>
           <div class="profile-menu-items">
+            <button class="menu-item" id="menuAccountBtn" hidden><i class="bx bx-user-circle"></i><span>My Account</span></button>
             <button class="menu-item" id="menuAuthBtn"><i class="bx bx-log-in"></i><span>Sign In / Register</span></button>
             <button class="menu-item" id="menuSettingsBtn"><i class="bx bx-cog"></i><span>Preferences</span></button>
             <button class="menu-item menu-danger" id="menuLogoutBtn" hidden><i class="bx bx-log-out"></i><span>Sign Out</span></button>
@@ -72,7 +73,7 @@
         <div class="topbar-left">
           <button class="icon-btn menu-btn" id="openSidebar" aria-label="Open menu"><i class="bx bx-menu-alt-left"></i></button>
           <div class="assistant-mark"><img src="assets/mark.svg" alt=""></div>
-          <div><strong id="topbarTitle">AGENET Assistant</strong><small><span class="online-dot"></span> Demo mode</small></div>
+          <div><strong id="topbarTitle">AGENET Assistant</strong><small><span class="online-dot"></span> Real-time AI Online</small></div>
         </div>
         <div class="topbar-actions">
           <button class="topbar-auth-btn" id="topAuthBtn" aria-label="Account">
@@ -115,6 +116,24 @@
 
   <dialog class="modal" id="settingsModal">
     <div class="modal-header"><div><span class="eyebrow">PREFERENCES</span><h2>Settings</h2></div><button class="icon-btn" data-close="settingsModal" aria-label="Close settings"><i class="bx bx-x"></i></button></div>
+    <div class="settings-row" id="settingsAccountRow">
+      <div>
+        <b>Account</b>
+        <small id="settingsAccountSub">Not signed in (Guest mode)</small>
+      </div>
+      <div id="settingsAccountActions">
+        <button class="theme-choice" id="settingsAuthBtn"><i class="bx bx-log-in"></i> Sign In</button>
+      </div>
+    </div>
+    <div class="settings-row" id="settingsAIRow">
+      <div>
+        <b>AI Engine</b>
+        <small id="settingsAISub">Real-time AI (Free · Instant responses)</small>
+      </div>
+      <div>
+        <button class="theme-choice" id="configureAIBtn"><i class="bx bx-bot"></i> Configure</button>
+      </div>
+    </div>
     <div class="settings-row"><div><b>Appearance</b><small>Choose your preferred interface theme.</small></div><div class="theme-options"><button class="theme-choice active" data-set-theme="dark"><i class="bx bx-moon"></i> Dark</button><button class="theme-choice" data-set-theme="light"><i class="bx bx-sun"></i> Light</button></div></div>
     <div class="settings-row"><div><b>Conversation data</b><small>Remove all locally saved conversations.</small></div><button class="danger-btn" id="clearAllBtn">Clear all chats</button></div>
     <p class="modal-note">Your preferences and conversations are stored in this browser using LocalStorage.</p>
@@ -124,8 +143,45 @@
     <div class="modal-header"><div><span class="eyebrow">ABOUT THE PROJECT</span><h2>AGENET AI</h2></div><button class="icon-btn" data-close="aboutModal" aria-label="Close about"><i class="bx bx-x"></i></button></div>
     <img src="assets/logo.svg" alt="AGENET AI" class="about-logo">
     <p>Your intelligent conversation companion.</p>
-    <p class="modal-note">A frontend demonstration built with HTML, CSS and Vanilla JavaScript. Responses are simulated locally; no real AI service is connected.</p>
-    <div class="about-meta"><span>Version 1.0.0</span><span>Frontend demo</span></div>
+    <p class="modal-note">A frontend AI chatbot with real-time streaming intelligence, user accounts, and customizable themes.</p>
+    <div class="about-meta"><span>Version 1.1.0</span><span>Real-time AI</span></div>
+  </dialog>
+
+  <!-- AI Configuration Modal -->
+  <dialog class="modal" id="aiConfigModal">
+    <div class="modal-header">
+      <div>
+        <span class="eyebrow">CONFIGURATION</span>
+        <h2>AI Engine Settings</h2>
+      </div>
+      <button class="icon-btn" data-close="aiConfigModal" aria-label="Close AI settings"><i class="bx bx-x"></i></button>
+    </div>
+    <form id="aiConfigForm" class="auth-form">
+      <div class="form-group">
+        <label for="aiProviderSelect">Real-Time AI Provider</label>
+        <div class="input-wrap">
+          <i class="bx bx-chip"></i>
+          <select id="aiProviderSelect" class="auth-select">
+            <option value="free">AGENET Real-Time Cloud AI (Free · Instant · No Key)</option>
+            <option value="gemini">Google Gemini API (Official API Key)</option>
+          </select>
+        </div>
+        <small class="field-hint">The Free Cloud AI engine works instantly out-of-the-box for any prompt.</small>
+      </div>
+      <div class="form-group" id="geminiKeyGroup" hidden>
+        <div class="form-label-row">
+          <label for="geminiApiKeyInput">Google Gemini API Key</label>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-link">Get Free Key <i class="bx bx-link-external"></i></a>
+        </div>
+        <div class="input-wrap">
+          <i class="bx bx-key"></i>
+          <input type="password" id="geminiApiKeyInput" placeholder="Paste AI Studio API key (AIzaSy...)">
+          <button type="button" class="pw-toggle" aria-label="Toggle API key visibility"><i class="bx bx-hide"></i></button>
+        </div>
+        <small class="field-hint">Your key is stored only in this browser's LocalStorage.</small>
+      </div>
+      <button type="submit" class="auth-submit-btn"><i class="bx bx-check"></i><span>Save AI Settings</span></button>
+    </form>
   </dialog>
 
   <!-- Authentication Modal (Login & Registration) -->
@@ -207,6 +263,10 @@
           <i class="bx bx-lock-alt"></i>
           <input type="password" id="regPassword" placeholder="At least 6 characters" required autocomplete="new-password">
           <button type="button" class="pw-toggle" aria-label="Toggle password visibility"><i class="bx bx-hide"></i></button>
+        </div>
+        <div class="password-meter" id="passwordMeter">
+          <div class="meter-bar"><span id="meterFill"></span></div>
+          <div class="meter-text"><span id="meterLabel">Password strength</span><span id="meterScore"></span></div>
         </div>
         <small class="field-hint">Must be at least 6 characters long</small>
       </div>

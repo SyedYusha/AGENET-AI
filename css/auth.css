@@ -164,6 +164,24 @@
     color: var(--subtle);
 }
 
+.auth-select {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.auth-select option {
+    background: var(--surface);
+    color: var(--text);
+}
+
 .pw-toggle {
     background: transparent;
     border: none;
@@ -529,10 +547,228 @@
     }
 }
 
+/* Password Strength Meter */
+.password-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.meter-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--surface-3);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.meter-bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.meter-text {
+    font-size: 10px;
+    color: var(--subtle);
+    display: flex;
+    justify-content: space-between;
+}
+
+.password-meter.weak .meter-bar span {
+    width: 30%;
+    background: var(--danger);
+}
+.password-meter.weak .meter-text {
+    color: var(--danger);
+}
+
+.password-meter.medium .meter-bar span {
+    width: 65%;
+    background: #f59e0b;
+}
+.password-meter.medium .meter-text {
+    color: #f59e0b;
+}
+
+.password-meter.strong .meter-bar span {
+    width: 100%;
+    background: var(--accent);
+}
+.password-meter.strong .meter-text {
+    color: var(--accent);
+}
+
+/* Account Details Modal */
+.account-modal {
+    width: min(520px, calc(100% - 32px));
+    max-width: 520px;
+}
+
+.account-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.account-hero-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2faf90, #176c60);
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.account-hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.account-hero-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-hero-info p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-top: 3px;
+}
+
+.account-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.account-stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.account-stat-card span {
+    font-size: 10px;
+    color: var(--subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.account-stat-card strong {
+    font-size: 16px;
+    color: var(--text);
+}
+
+.account-section {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.account-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.account-section-title i {
+    color: var(--accent);
+    font-size: 15px;
+}
+
+.account-actions-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.account-btn {
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.account-btn:hover {
+    background: var(--surface-2);
+    border-color: var(--accent);
+}
+
+.account-btn.btn-danger {
+    color: var(--danger);
+    border-color: rgba(239, 100, 100, 0.3);
+}
+
+.account-btn.btn-danger:hover {
+    background: rgba(239, 100, 100, 0.12);
+}
+
 /* Mobile responsiveness for auth */
 @media (max-width: 540px) {
     .auth-modal {
         padding: 20px 16px;
+    }
+    .account-modal {
+        padding: 20px 16px;
+    }
+    .account-stats {
+        grid-template-columns: 1fr;
     }
     .topbar-auth-btn span {
         display: none;
