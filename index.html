@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/chat.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -38,12 +39,29 @@
         <div class="empty-history">Your conversations will appear here.</div>
       </nav>
       <div class="sidebar-bottom">
+        <div class="profile-menu" id="profileMenu" hidden>
+          <div class="profile-menu-header">
+            <div class="avatar" id="menuAvatar">G</div>
+            <div>
+              <strong id="menuUserName">Guest User</strong>
+              <small id="menuUserEmail">Guest Mode · No account</small>
+            </div>
+          </div>
+          <div class="profile-menu-items">
+            <button class="menu-item" id="menuAuthBtn"><i class="bx bx-log-in"></i><span>Sign In / Register</span></button>
+            <button class="menu-item" id="menuSettingsBtn"><i class="bx bx-cog"></i><span>Preferences</span></button>
+            <button class="menu-item menu-danger" id="menuLogoutBtn" hidden><i class="bx bx-log-out"></i><span>Sign Out</span></button>
+          </div>
+        </div>
         <button class="side-link" id="settingsBtn"><i class="bx bx-cog"></i><span>Settings</span></button>
         <button class="side-link" id="themeBtn"><i class="bx bx-sun"></i><span>Switch to light mode</span></button>
         <button class="side-link" id="aboutBtn"><i class="bx bx-info-circle"></i><span>About AGENET</span></button>
-        <div class="profile">
-          <div class="avatar">A</div>
-          <div class="profile-copy"><strong>Guest User</strong><small>Personal workspace</small></div>
+        <div class="profile" id="userProfileBtn" role="button" tabindex="0" aria-label="User profile options">
+          <div class="avatar" id="sidebarAvatar">G</div>
+          <div class="profile-copy">
+            <strong id="sidebarUserName">Guest User</strong>
+            <small><span class="profile-auth-status guest" id="sidebarUserStatus"></span><span id="sidebarUserSub">Personal workspace</span></small>
+          </div>
           <i class="bx bx-chevron-down profile-chevron"></i>
         </div>
       </div>
@@ -57,6 +75,10 @@
           <div><strong id="topbarTitle">AGENET Assistant</strong><small><span class="online-dot"></span> Demo mode</small></div>
         </div>
         <div class="topbar-actions">
+          <button class="topbar-auth-btn" id="topAuthBtn" aria-label="Account">
+            <i class="bx bx-user"></i>
+            <span>Sign In</span>
+          </button>
           <button class="icon-btn" id="topThemeBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bx bx-sun"></i></button>
           <button class="icon-btn" id="aboutTopBtn" aria-label="About" title="About AGENET"><i class="bx bx-info-circle"></i></button>
         </div>
@@ -105,6 +127,108 @@
     <p class="modal-note">A frontend demonstration built with HTML, CSS and Vanilla JavaScript. Responses are simulated locally; no real AI service is connected.</p>
     <div class="about-meta"><span>Version 1.0.0</span><span>Frontend demo</span></div>
   </dialog>
+
+  <!-- Authentication Modal (Login & Registration) -->
+  <dialog class="modal auth-modal" id="authModal">
+    <div class="modal-header">
+      <div>
+        <span class="eyebrow" id="authEyebrow">WELCOME TO AGENET AI</span>
+        <h2 id="authTitle">Sign In</h2>
+      </div>
+      <button class="icon-btn" data-close="authModal" aria-label="Close dialog"><i class="bx bx-x"></i></button>
+    </div>
+
+    <!-- Auth Tabs -->
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab active" id="tabLogin" type="button" role="tab" aria-selected="true">
+        <i class="bx bx-log-in"></i><span>Sign In</span>
+      </button>
+      <button class="auth-tab" id="tabRegister" type="button" role="tab" aria-selected="false">
+        <i class="bx bx-user-plus"></i><span>Create Account</span>
+      </button>
+    </div>
+
+    <!-- Feedback Alert Box -->
+    <div class="auth-alert" id="authAlert" role="alert" hidden></div>
+
+    <!-- Login Form -->
+    <form class="auth-form" id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="loginEmail">Email address</label>
+        <div class="input-wrap">
+          <i class="bx bx-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="name@example.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label-row">
+          <label for="loginPassword">Password</label>
+        </div>
+        <div class="input-wrap">
+          <i class="bx bx-lock-alt"></i>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+          <button type="button" class="pw-toggle" aria-label="Toggle password visibility"><i class="bx bx-hide"></i></button>
+        </div>
+      </div>
+      <div class="form-options">
+        <label class="remember-label">
+          <input type="checkbox" id="loginRemember" checked>
+          <span>Remember me</span>
+        </label>
+        <button type="button" class="text-link" id="quickDemoBtn" title="Fill with demo credentials">Try Demo User</button>
+      </div>
+      <button type="submit" class="auth-submit-btn" id="loginSubmitBtn">
+        <i class="bx bx-log-in"></i><span>Sign In</span>
+      </button>
+      <p class="auth-switch-text">
+        Don't have an account? <button type="button" class="switch-link" id="switchToRegister">Create one now</button>
+      </p>
+    </form>
+
+    <!-- Register Form -->
+    <form class="auth-form" id="registerForm" novalidate hidden>
+      <div class="form-group">
+        <label for="regName">Full Name</label>
+        <div class="input-wrap">
+          <i class="bx bx-user"></i>
+          <input type="text" id="regName" placeholder="e.g. Alex Johnson" required autocomplete="name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regEmail">Email address</label>
+        <div class="input-wrap">
+          <i class="bx bx-envelope"></i>
+          <input type="email" id="regEmail" placeholder="name@example.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPassword">Password</label>
+        <div class="input-wrap">
+          <i class="bx bx-lock-alt"></i>
+          <input type="password" id="regPassword" placeholder="At least 6 characters" required autocomplete="new-password">
+          <button type="button" class="pw-toggle" aria-label="Toggle password visibility"><i class="bx bx-hide"></i></button>
+        </div>
+        <small class="field-hint">Must be at least 6 characters long</small>
+      </div>
+      <div class="form-group">
+        <label for="regConfirmPassword">Confirm Password</label>
+        <div class="input-wrap">
+          <i class="bx bx-check-shield"></i>
+          <input type="password" id="regConfirmPassword" placeholder="Re-enter your password" required autocomplete="new-password">
+          <button type="button" class="pw-toggle" aria-label="Toggle password visibility"><i class="bx bx-hide"></i></button>
+        </div>
+      </div>
+      <button type="submit" class="auth-submit-btn" id="registerSubmitBtn">
+        <i class="bx bx-user-plus"></i><span>Create Account</span>
+      </button>
+      <p class="auth-switch-text">
+        Already have an account? <button type="button" class="switch-link" id="switchToLogin">Sign in</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
   <script type="module" src="js/main.js"></script>
 </body>
